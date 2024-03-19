@@ -6,7 +6,7 @@ export default function TabOneScreen() {
   return (
     <Theme name="light">
       <YStack flex={1} alignItems="center" justifyContent="center">
-        <H2>Tab One</H2>
+        <H2>Tab Uno</H2>
         <Separator />
         <EditScreenInfo path="app/(drawer)/(tabs)/index.tsx" />
       </YStack>
