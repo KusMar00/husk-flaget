@@ -14,27 +14,21 @@ const DrawerLayout = () => (
       }}
     />
     <Drawer.Screen
-      name="(tabs)"
+      name="info"
       options={{
-        headerTitle: 'Tabs',
-        drawerLabel: 'Tabs',
+        headerTitle: 'Info',
+        drawerLabel: 'Info',
         drawerIcon: ({ size, color }) => (
-          <MaterialIcons name="border-bottom" size={size} color={color} />
+          <Ionicons name="information-circle" size={size} color={color} />
         ),
-        headerRight: () => (
-          <Link href="/modal" asChild>
-            <Pressable>
-              {({ pressed }) => (
-                <FontAwesome
-                  name="info-circle"
-                  size={25}
-                  color="gray"
-                  style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
-                />
-              )}
-            </Pressable>
-          </Link>
-        ),
+      }}
+    />
+    <Drawer.Screen
+      name="shop"
+      options={{
+        headerTitle: 'Shop',
+        drawerLabel: 'Shop',
+        drawerIcon: ({ size, color }) => <Ionicons name="cart" size={size} color={color} />,
       }}
     />
   </Drawer>
