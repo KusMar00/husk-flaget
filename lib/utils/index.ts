@@ -11,7 +11,7 @@ type FlagDayType = {
 // Constant definitions used in utility functions
 const URL = 'https://www.justitsministeriet.dk/temaer/flagning/flagdage/';
 
-const currentYear = new Date().getFullYear();
+const currentDate = new Date();
 
 // Utility functions
 const convertMonthToNumber = (month: string): number => {
@@ -63,7 +63,7 @@ const scrapeFlagFlyingDays = async () => {
           // In this case we have the date text information
           const [date, month] = $(childElement).text().split('.');
           currentFlagDay.date = new Date(
-            currentYear,
+            currentDate.getFullYear(),
             convertMonthToNumber(month.trim()),
             Number(date) + 1
           );
@@ -77,11 +77,10 @@ const scrapeFlagFlyingDays = async () => {
     flagDayArray.push(currentFlagDay);
   });
 
-  console.log(flagDayArray);
   return flagDayArray;
 };
 
-const saveScraperDataToFile = async () => {
+const scrapeFlagFlyingDaysAndSaveToFile = async () => {
   const fs = require('fs');
 
   const data = await scrapeFlagFlyingDays();
@@ -99,4 +98,37 @@ const saveScraperDataToFile = async () => {
   });
 };
 
-saveScraperDataToFile();
+function dateDiffInDays(a: Date, b: Date): number {
+  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
+
+const getNextFlagDay = async (
+  flagDayArray: Array<FlagDayType>,
+  currentDate: Date
+): Promise<[FlagDayType, number]> => {
+  for (let i = 0; i < flagDayArray.length; i++) {
+    const days = dateDiffInDays(currentDate, flagDayArray[i].date);
+    if (days >= 0) {
+      return [flagDayArray[i], days];
+    }
+  }
+  throw Error("Couldn't find closest date");
+};
+
+const testUtils = async (): Promise<void> => {
+  // Scrape
+  const data = await scrapeFlagFlyingDays();
+
+  // Find closest flag flying day
+  const [flagDay, days] = await getNextFlagDay(data, new Date());
+  console.log(`The next flag day is ${flagDay.title}!`);
+  flagDay.details.length > 1 && console.log(flagDay.details);
+  console.log(`In ${days} days`);
+};
+
+testUtils();
