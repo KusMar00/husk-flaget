@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native';
+import { WebView } from 'react-native-webview';
 import React from 'react';
+import { View } from 'tamagui';
 
 const shop = () => {
-  return (
-    <View>
-      <Text>shop</Text>
-    </View>
-  );
+  return <WebView source={{ uri: 'https://www.designflag.dk/produkt-kategori/dannebrosflag/' }} />;
 };
 
 export default shop;
