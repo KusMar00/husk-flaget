@@ -30,7 +30,7 @@ export default function RootLayout() {
   return (
     <TamaguiProvider config={config}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Theme name={'blue'}>
+        <Theme name="dark">
           <Stack>
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           </Stack>
