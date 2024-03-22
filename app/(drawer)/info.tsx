@@ -1,12 +1,20 @@
-import { View, Text } from 'react-native';
+import { Main, ScrollView, YStack } from 'tamagui';
 import React from 'react';
+import { Container } from '~/tamagui.config';
+import InfoCard from '~/components/InfoCard';
 
 const info = () => {
   return (
-    <View>
-      <Text>info</Text>
-    </View>
+    <ScrollView>
+      <Container>
+        <YStack space>
+          <InfoCard />
+          <InfoCard />
+          <InfoCard />
+          <InfoCard />
+        </YStack>
+      </Container>
+    </ScrollView>
   );
 };
-
 export default info;
