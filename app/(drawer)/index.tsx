@@ -37,6 +37,13 @@ const Home = () => {
             <Spinner />
           ) : (
             <Container
+              enterStyle={{
+                scale: 1.5,
+                y: -10,
+                opacity: 0,
+              }}
+              animation="quick"
+              elevation="$4"
               style={{
                 backgroundColor: 'maroon',
                 borderRadius: '35px',
