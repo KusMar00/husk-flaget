@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 
 // Type definitions for utility functions
-type FlagDayType = {
+export type FlagDayType = {
   date: Date;
   title: string;
   details: string;
@@ -80,23 +80,23 @@ const scrapeFlagFlyingDays = async () => {
   return flagDayArray;
 };
 
-const scrapeFlagFlyingDaysAndSaveToFile = async () => {
-  const fs = require('fs');
+// const scrapeFlagFlyingDaysAndSaveToFile = async () => {
+//   const fs = require('fs');
 
-  const data = await scrapeFlagFlyingDays();
+//   const data = await scrapeFlagFlyingDays();
 
-  // Convert the array to JavaScript code
-  const jsContent = `export const flagDayArray = ${JSON.stringify(data)};`;
+//   // Convert the array to JavaScript code
+//   const jsContent = `export const flagDayArray = ${JSON.stringify(data)};`;
 
-  // Write JavaScript code to file
-  fs.writeFile('flagDays.js', jsContent, 'utf8', (err: Error) => {
-    if (err) {
-      console.error('Error writing file:', err);
-      return;
-    }
-    console.log('File has been saved successfully.');
-  });
-};
+//   // Write JavaScript code to file
+//   fs.writeFile('flagDays.js', jsContent, 'utf8', (err: Error) => {
+//     if (err) {
+//       console.error('Error writing file:', err);
+//       return;
+//     }
+//     console.log('File has been saved successfully.');
+//   });
+// };
 
 function dateDiffInDays(a: Date, b: Date): number {
   const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -131,4 +131,16 @@ const testUtils = async (): Promise<void> => {
   console.log(`In ${days} days`);
 };
 
+export const scrapeAndGetNextFlagDay = async (): Promise<{
+  flagDay: FlagDayType;
+  days: number;
+}> => {
+  // Scrape
+  const data = await scrapeFlagFlyingDays();
+
+  // Find closest flag flying day
+  const [flagDay, days] = await getNextFlagDay(data, new Date());
+
+  return { flagDay: flagDay, days: days };
+};
 testUtils();

@@ -1,13 +1,53 @@
-import { Button, Card, CardBackground, Paragraph, ScrollView } from 'tamagui';
-import { YStack, H2 } from 'tamagui';
+import {
+  Button,
+  Card,
+  CardBackground,
+  YStack,
+  H1,
+  H2,
+  H3,
+  Paragraph,
+  ScrollView,
+  Spinner,
+} from 'tamagui';
 import FlagCalender from '~/components/FlagCalender';
 import { Container, Main } from '~/tamagui.config';
+import { scrapeAndGetNextFlagDay, FlagDayType } from '~/lib/utils';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
+  const [nextFlagDay, setNextFlagDay] = useState<FlagDayType>();
+  const [numberOfDays, setNumberOfDays] = useState<number>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await scrapeAndGetNextFlagDay();
+      setNextFlagDay(data.flagDay);
+      setNumberOfDays(data.days);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Main>
       <ScrollView>
-        <YStack flex={1} alignItems="center" justifyContent="center">
+        <YStack flex={1} alignItems="center" justifyContent="center" space>
+          {nextFlagDay === undefined ? (
+            <Spinner />
+          ) : (
+            <Container
+              style={{
+                backgroundColor: 'maroon',
+                borderRadius: '35px',
+                width: '90%',
+                marginTop: 50,
+              }}>
+              <H2>Næste flagdag er</H2>
+              <H1>{nextFlagDay.title}</H1>
+              <H3>Om {numberOfDays} dage.</H3>
+            </Container>
+          )}
           <Card size={'$12'}>
             <Card.Header p={50}>
               <H2>Flagkalender</H2>
