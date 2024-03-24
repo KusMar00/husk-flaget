@@ -7,11 +7,6 @@ const shop = () => {
 
   return (
     <>
-      {isLoading && (
-        <View h={'100vh'} flex justifyContent="center" alignItems="center">
-          <Spinner size="large" color="$orange10" />
-        </View>
-      )}
       <WebView
         source={{ uri: 'https://www.designflag.dk/produkt-kategori/dannebrosflag/' }}
         onLoadProgress={({ nativeEvent }) => {
@@ -22,6 +17,11 @@ const shop = () => {
           }
         }}
       />
+      {isLoading && (
+        <View h={'100%'} alignItems="center" justifyContent="center">
+          <Spinner size="large" color="$grey10" />
+        </View>
+      )}
     </>
   );
 };
