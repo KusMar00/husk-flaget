@@ -1,18 +1,5 @@
-import {
-  Button,
-  Card,
-  CardBackground,
-  YStack,
-  H1,
-  H2,
-  H3,
-  Paragraph,
-  ScrollView,
-  Spinner,
-} from 'tamagui';
-import FlagCalender from '~/components/FlagCalender';
-import { Container, Main } from '~/tamagui.config';
-import { scrapeAndGetNextFlagDay, FlagDayType } from '~/lib/utils';
+import { YStack, H1, H2, Text, Spinner, View, Separator, Circle, XStack, Paragraph } from 'tamagui';
+import { scrapeAndGetNextFlagDay, FlagDayType } from '~/utils';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
@@ -30,48 +17,54 @@ const Home = () => {
   }, []);
 
   return (
-    <Main>
-      <ScrollView>
-        <YStack flex={1} alignItems="center" justifyContent="center" space>
-          {nextFlagDay === undefined ? (
-            <Spinner />
-          ) : (
-            <Container
-              enterStyle={{
-                scale: 1.5,
-                y: -10,
-                opacity: 0,
-              }}
-              animation="quick"
-              elevation="$4"
-              style={{
-                backgroundColor: 'maroon',
-                borderRadius: '35px',
-                width: '90%',
-                marginTop: 50,
-              }}>
-              <H2>Næste flagdag er</H2>
-              <H1>{nextFlagDay.title}</H1>
-              <H3>Om {numberOfDays} dage.</H3>
-            </Container>
-          )}
-          <Card size={'$12'}>
-            <Card.Header p={50}>
-              <H2>Flagkalender</H2>
-              <Paragraph>Få et overblik over kommende flagdage eller tilføj dine egne </Paragraph>
-            </Card.Header>
-            <YStack px={20}>
-              <FlagCalender />
-            </YStack>
-            <Card.Footer padded alignItems="center" justifyContent="center">
-              <Button theme="blue" w={300}>
-                Tilføj
-              </Button>
-            </Card.Footer>
-          </Card>
+    <View alignItems="center">
+      {nextFlagDay === undefined ? (
+        <Spinner />
+      ) : (
+        <YStack bc={'$blue2'} p={'$5'} w={'100%'} h={'100%'} space={'$5'}>
+          <H1>Godmorgen ☀️</H1>
+          <Paragraph fontSize="$7">Her finder du information om den kommende flagdag</Paragraph>
+          <Separator borderColor={'white'} />
+          <YStack alignItems="center" space={'$5'}>
+            <XStack
+              mt="$10"
+              separator={<Separator alignSelf="stretch" vertical borderColor={'white'} />}
+              gap={'$4'}
+              alignItems="center"
+              justifyContent="center"
+              borderColor={'white'}
+              borderWidth={'$1.5'}
+              borderRadius={'$7'}
+              bc={'$blue3'}
+              p={'$3'}
+              borderStyle={'solid'}>
+              <Text fontSize={'$8'} col={'white'}>
+                {nextFlagDay.title}
+              </Text>
+              <Text fontSize={'$8'} col={'white'}>
+                {nextFlagDay.date.getDate()}/{nextFlagDay.date.getMonth()}
+              </Text>
+              <Text fontSize={'$8'}>🏳️‍🌈</Text>
+            </XStack>
+            <Circle
+              mt="$5"
+              size={170}
+              backgroundColor="$blue3"
+              bordered
+              borderWidth={'$1.5'}
+              borderColor={'white'}
+              elevation="$3">
+              <Text textAlign="center" col={'white'} fontSize={'$12'}>
+                {numberOfDays}
+              </Text>
+              <Text textAlign="center" col={'white'} fontSize={'$7'}>
+                Dage
+              </Text>
+            </Circle>
+          </YStack>
         </YStack>
-      </ScrollView>
-    </Main>
+      )}
+    </View>
   );
 };
 

@@ -7,6 +7,7 @@ const FlagCalender = () => {
       style={{
         borderRadius: 25,
         height: 375,
+        width: '100%',
       }}
       theme={{
         backgroundColor: '#ffffff',
