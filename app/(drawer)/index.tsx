@@ -1,4 +1,4 @@
-import { YStack, H1, H2, Text, Spinner, View, Separator, Circle, XStack, Paragraph } from 'tamagui';
+import { YStack, H1, H2, Text, Spinner, View, Separator, Circle, XStack } from 'tamagui';
 import { scrapeAndGetNextFlagDay, FlagDayType } from '~/utils';
 import { useEffect, useState } from 'react';
 
@@ -17,15 +17,31 @@ const Home = () => {
   }, []);
 
   return (
-    <View alignItems="center">
+    <View>
       {nextFlagDay === undefined ? (
         <Spinner />
       ) : (
-        <YStack bc={'$blue2'} p={'$5'} w={'100%'} h={'100%'} space={'$5'}>
-          <H1>Godmorgen ☀️</H1>
-          <Paragraph fontSize="$7">Her finder du information om den kommende flagdag</Paragraph>
-          <Separator borderColor={'white'} />
-          <YStack alignItems="center" space={'$5'}>
+        <YStack bc={'white'} w={'100%'} h={'100%'} space={'$5'}>
+          <YStack mx="$4" space="$5">
+            <Circle
+              alignSelf="center"
+              mt="$5"
+              size={275}
+              backgroundColor="white"
+              bordered
+              borderWidth={'$2'}
+              borderColor={'$blue7'}
+              elevation="$1">
+              <Text textAlign="center" col="$blue7" fontSize={'$12'}>
+                {numberOfDays}
+              </Text>
+              <Text textAlign="center" col="$gray10" fontSize={'$5'}>
+                Dage til næste flagdag
+              </Text>
+            </Circle>
+            <H2>
+              <Text col="black">Kalender</Text>
+            </H2>
             <XStack
               mt="$10"
               separator={<Separator alignSelf="stretch" vertical borderColor={'white'} />}
@@ -46,21 +62,6 @@ const Home = () => {
               </Text>
               <Text fontSize={'$8'}>🏳️‍🌈</Text>
             </XStack>
-            <Circle
-              mt="$5"
-              size={170}
-              backgroundColor="$blue3"
-              bordered
-              borderWidth={'$1.5'}
-              borderColor={'white'}
-              elevation="$3">
-              <Text textAlign="center" col={'white'} fontSize={'$12'}>
-                {numberOfDays}
-              </Text>
-              <Text textAlign="center" col={'white'} fontSize={'$7'}>
-                Dage
-              </Text>
-            </Circle>
           </YStack>
         </YStack>
       )}

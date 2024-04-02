@@ -8,6 +8,14 @@ const DrawerLayout = () => (
       name="index"
       options={{
         headerTitle: 'Hjem',
+        headerStyle: {
+          height: 150,
+        },
+        headerTitleStyle: {
+          fontWeight: '500',
+          fontSize: 40,
+        },
+        headerShadowVisible: false,
         drawerLabel: 'Hjem',
         drawerIcon: ({ size, color }) => <Ionicons name="home-outline" size={size} color={color} />,
       }}
