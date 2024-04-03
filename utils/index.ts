@@ -134,6 +134,7 @@ const testUtils = async (): Promise<void> => {
 export const scrapeAndGetNextFlagDay = async (): Promise<{
   flagDay: FlagDayType;
   days: number;
+  allDays: Array<FlagDayType>;
 }> => {
   // Scrape
   const data = await scrapeFlagFlyingDays();
@@ -141,6 +142,6 @@ export const scrapeAndGetNextFlagDay = async (): Promise<{
   // Find closest flag flying day
   const [flagDay, days] = await getNextFlagDay(data, new Date());
 
-  return { flagDay: flagDay, days: days };
+  return { flagDay: flagDay, days: days, allDays: data };
 };
 testUtils();

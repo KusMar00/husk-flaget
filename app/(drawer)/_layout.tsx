@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { DrawerToggleButton } from '@react-navigation/drawer';
 import { Drawer } from 'expo-router/drawer';
 import { StyleSheet } from 'react-native';
 
@@ -17,6 +18,7 @@ const DrawerLayout = () => (
         },
         headerShadowVisible: false,
         drawerLabel: 'Hjem',
+        headerLeft: () => <DrawerToggleButton />,
         drawerIcon: ({ size, color }) => <Ionicons name="home-outline" size={size} color={color} />,
       }}
     />
@@ -33,8 +35,8 @@ const DrawerLayout = () => (
     <Drawer.Screen
       name="info"
       options={{
-        headerTitle: 'Info',
-        drawerLabel: 'Info',
+        headerTitle: 'Flag Wiki',
+        drawerLabel: 'Flag Wiki',
         drawerIcon: ({ size, color }) => (
           <Ionicons name="information-circle-outline" size={size} color={color} />
         ),
